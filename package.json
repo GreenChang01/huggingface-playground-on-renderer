@@ -11,7 +11,8 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "@gradio/client": "*"
   },
   "engines": {
     "node": ">=14"
