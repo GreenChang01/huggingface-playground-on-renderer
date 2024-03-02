@@ -30,7 +30,7 @@ const handleRunGenerateImage = async (req, res) => {
   if (result?.data?.[0]?.[0]?.image?.path) {
     const fileUrl = `${baseUrl}file=${result.data[0][0].image.path}`;
     console.log(fileUrl);
-    res.json({ imgUrl: data }).status(200);
+    res.status(200).json({ imgUrl: fileUrl });
   }
 };
 
