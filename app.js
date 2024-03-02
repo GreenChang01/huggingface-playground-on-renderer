@@ -1,10 +1,11 @@
 const express = require("express");
-const { client } = require("@gradio/client")
 const app = express();
 const port = process.env.PORT || 3001;
+const importDynamic = new Function('modulePath', 'return import(modulePath)');
 
-const huggingFaceApp = client("https://playgroundai-playground-v2-5.hf.space/--replicas/9kuov/");
 const handleRunGenerateImage = async (req, res) => {
+  const { client } = await importDynamic('@gradio/client');
+  const huggingFaceApp = await client("https://playgroundai-playground-v2-5.hf.space/--replicas/9kuov/");
   const { posPrompt,negPrompt,useNeg,width,height, guidanceScale } = req.body
   const result = await huggingFaceApp.predict("/run", [		
     posPrompt || "Hello!!", // string  in 'Prompt' Textbox component		
