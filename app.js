@@ -1,8 +1,11 @@
 import { createRequire } from "node:module";
 import { client } from "./client.js";
 import express from "express";
+import bodyParser from "body-parser"
 const require = createRequire(import.meta.url);
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 global.EventSource = require("eventsource");
 const baseUrl =
   "https://playgroundai-playground-v2-5.hf.space/--replicas/9kuov/";
@@ -11,7 +14,7 @@ const huggingFaceApp = await client(baseUrl);
 const port = process.env.PORT || 3001;
 
 const handleRunGenerateImage = async (req, res) => {
-  console.log("req: ", req);
+  console.log("req: ", req.body);
   const { posPrompt, negPrompt, useNeg, width, height, guidanceScale } =
     req.body;
   const result = await huggingFaceApp.predict("/run", [
