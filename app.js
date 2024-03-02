@@ -17,8 +17,9 @@ const handleRunGenerateImage = async (req, res) => {
   console.log("req: ", req.body);
   const { posPrompt, negPrompt, useNeg, width, height, guidanceScale } =
     req.body;
+  const [alt, pos] = posPrompt.split("|");
   const result = await huggingFaceApp.predict("/run", [
-    posPrompt || "Hello!!", // string  in 'Prompt' Textbox component
+    pos || "Hello!!", // string  in 'Prompt' Textbox component
     negPrompt || "", // string  in 'Negative prompt' Textbox component
     useNeg || false, // boolean  in 'Use negative prompt' Checkbox component
     0, // number (numeric value between 0 and 2147483647) in 'Seed' Slider component
@@ -30,7 +31,7 @@ const handleRunGenerateImage = async (req, res) => {
   if (result?.data?.[0]?.[0]?.image?.path) {
     const fileUrl = `${baseUrl}file=${result.data[0][0].image.path}`;
     console.log(fileUrl);
-    res.status(200).json({ imgUrl: fileUrl });
+    res.status(200).json({ imgUrl: fileUrl, alt });
   }
 };
 
