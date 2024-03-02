@@ -1,7 +1,7 @@
 import { createRequire } from "node:module";
 import { client } from "./client.js";
 import express from "express";
-import bodyParser from "body-parser"
+import bodyParser from "body-parser";
 const require = createRequire(import.meta.url);
 const app = express();
 app.use(bodyParser.json());
@@ -30,7 +30,7 @@ const handleRunGenerateImage = async (req, res) => {
   if (result?.data?.[0]?.[0]?.image?.path) {
     const fileUrl = `${baseUrl}file=${result.data[0][0].image.path}`;
     console.log(fileUrl);
-    res.send(fileUrl);
+    res.json({ imgUrl: data }).status(200);
   }
 };
 
