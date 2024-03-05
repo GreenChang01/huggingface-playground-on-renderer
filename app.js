@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 global.EventSource = require("eventsource");
 const baseUrl =
-  "https://playgroundai-playground-v2-5.hf.space/--replicas/9kuov/";
+  "https://playgroundai-playground-v2-5.hf.space/--replicas/mqedc/";
 const huggingFaceApp = await client(baseUrl);
 
 const port = process.env.PORT || 3001;
